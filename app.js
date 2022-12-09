@@ -10,11 +10,11 @@ app.use(express.json());
 app.get("/",(req,res)=>{
     res.json("server start")
 })
-const usersRoute = require('./routes/users');
+const usersRoute = require('./Router/users');
 app.use('/users', usersRoute);
-const books = require('./routes/book');
+const books = require('./Router/book');
 app.use('/book', books);
-const order = require('./routes/order');
+const order = require('./Router/order');
 app.use('/order', order);
 
 app.listen(port, () => {
