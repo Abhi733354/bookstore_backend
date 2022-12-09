@@ -27,8 +27,8 @@ router.get('/getbooks', async(req, res) => {
 
 router.get("/searchbook/:book_name", async (req, res) => {
     try {
-        const book_name = req.params.book_id;
-        const response = await db.promise().query(`SELECT * FROM book WHERE book_id = '${book_name}'`);
+        const book_name = req.params.book_name;
+        const response = await db.promise().query(`SELECT * FROM book WHERE book_name = '${book_name}'`);
         res.status(200).json(response[0]);
     } catch (err) {
         res.status(400).json(err);
