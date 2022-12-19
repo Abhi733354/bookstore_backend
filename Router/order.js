@@ -4,10 +4,10 @@ const router = express.Router();
 
 const db = require('../db');
 
-router.post('/addbooks', async(req, res) => {
+router.post('/placeorder', async(req, res) => {
     try {
-        const response = await db.promise().query(`INSERT INTO order (order_id, book_name, book_price, mobileno)
-          VALUES ('${req.body.order_id}','${req.body.book_name}',' ${req.body.book_price}','${mobileno})`);
+        const response = await db.promise().query(`INSERT INTO order (order_id, book_name, book_price)
+          VALUES ('${req.body.order_id}','${req.body.book_name}',' ${req.body.book_price}')`);
         
         res.status(201).json({ massage: 'success' });
     } catch(err) {

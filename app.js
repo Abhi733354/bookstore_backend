@@ -1,21 +1,23 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
-require("dotenv").config({ path: ".env"});
+const bodyParser = require('body-parser');
+require('./db');
 const port = 8003;
 
 app.use(cors());
 app.use(express.json());
+app.use(bodyParser.json());
 
 app.get("/",(req,res)=>{
     res.json("server start")
 })
-const usersRoute = require('./Router/users');
-app.use('/users', usersRoute);
-const books = require('./Router/book');
-app.use('/book', books);
+const users = require('./Router/User');
+app.use(users);
+const book = require('./Router/book');
+app.use(book);
 const order = require('./Router/order');
-app.use('/order', order);
+app.use(order);
 
 app.listen(port, () => {
 console.log(`server is start port number ${port}`);
