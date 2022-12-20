@@ -4,17 +4,23 @@ const router = express.Router();
 
 const db = require('../db');
 
-router.post('/addbooks', async(req, res) => {
+
+router.post("/addbooks", (req, res)=>{
     console.log(req.body);
-    try {
-        const response =  await db.promise().query(`INSERT INTO books(book_name, book_price, image)VALUES('${req.body.book_name}',' ${req.body.book_price}','${req.body.image})`);
-        
-    console.log(response);
-        res.status(201).json({ massage: 'success' });
-    } 
-    catch(err) {
-        res.status(400).json(err);
-    }
+    const q = "INSERT INTO books (`book_name`, `book_price`, `image`) VALUES(?)";
+    const values = [
+        req.body.book_name,
+        req.body.book_price,
+        req.body.image
+    ];
+    db.query(q, [values], (err, data)=>{
+        if(err){
+            res.send(err);
+            
+        }else{
+            res.send(data);
+        }
+    })
 })
 
 router.get('/getbooks', async(req, res) => {

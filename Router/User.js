@@ -3,18 +3,22 @@ const express = require('express');
 const router = express.Router();
 
 const db = require('../db');
-
-router.post('/userregister', async(req, res) => {
+router.post("/userregister", (req, res)=>{
     console.log(req.body);
-    try {
-        const response =  await db.promise().query(`INSERT INTO users(name, email, password)VALUES('${req.body.name}',' ${req.body.email}','${req.body.password})`);
-        
-    console.log(response);
-        res.status(201).json({ massage: 'success' });
-    } 
-    catch(err) {
-        res.status(400).json(err);
-    }
+    const q = "INSERT INTO users (`name`, `email`, `password`) VALUES(?)";
+    const values = [
+        req.body.name,
+        req.body.email,
+        req.body.password
+    ];
+    db.query(q, [values], (err, data)=>{
+        if(err){
+            res.send(err);
+            
+        }else{
+            res.send(data);
+        }
+    })
 })
 
 

@@ -7,6 +7,7 @@ var conn = mysql.createConnection({
 });
 
 conn.connect(function(error){
+    
     if(error) 
     {
         throw error;
